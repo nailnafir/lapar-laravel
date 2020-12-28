@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Laravel\Jetstream\HasTeams;
+use Laravel\Sanctum\HasApiTokens;
+use Laravel\Jetstream\HasProfilePhoto;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Jetstream\HasTeams;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -26,7 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'gender', 'address', 'houseNumber', 'rtrw', 'subDistrict', 'district', 'city', 'phoneNumber'
     ];
 
     /**
@@ -58,4 +59,12 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function getCreatedAtAttribute($created_at) {
+        return Carbon::parse($created_at)->getPreciseTimestamp(3);
+    }
+
+    public function getUpdatedAtAttribute($updated_at) {
+        return Carbon::parse($updated_at)->getPreciseTimestamp(3);
+    }
 }
