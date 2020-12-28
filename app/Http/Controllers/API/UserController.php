@@ -100,12 +100,24 @@ class UserController extends Controller
         }
     }
 
-    public function logout (Request $request) {
+    public function logout(Request $request) {
 
         // cari user yang login, lalu delete tokennya
         $token = $request->user()->currentAccessToken()->delete();
 
         // menghasilkan boolean
         return ResponseFormatter::success($token, 'Token dihapus');
+    }
+
+    public function updateProfile(Request $request) {
+
+        // ambil dan tampung semua data yang diminta
+        $data = $request->all();
+
+        // panggil user yang sedang login lalu update data
+        $user = Auth::user();
+        $user->update($data);
+
+        return ResponseFormatter::success($user, 'Berhasil update profil');
     }
 }
