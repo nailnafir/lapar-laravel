@@ -9,6 +9,7 @@ use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use App\Actions\Fortify\PasswordValidationRules;
 
 class UserController extends Controller
@@ -123,5 +124,34 @@ class UserController extends Controller
         $user->update($data);
 
         return ResponseFormatter::success($user, 'Berhasil update profil');
+    }
+
+    public function updatePhoto(Request $request) {
+
+        // memanggil validator untuk mengecek syarat file
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|image|max:2048',
+        ]);
+
+        // jika validator gagal akan memberi pesan error
+        if($validator->fails()) {
+            return Response()->json([
+                'errors' => $validator->errors(),
+                'Gagal memperbarui foto profil',
+                401
+            ]);
+        }
+
+        // pengecekan file pada storage dan harus symlink dulu
+        if($request->file('file')) {
+            $file = $request->file->store('assets/user', 'public');
+
+            // simpan url foto ke database, fotonya disimpan pada storage laravel
+            $user = Auth::user();
+            $user->profile_photo_path = $file;
+            $user->update();
+
+            return ResponseFormatter::success([$file], 'Berhasil upload file');
+        }
     }
 }
