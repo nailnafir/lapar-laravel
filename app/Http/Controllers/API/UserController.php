@@ -15,6 +15,10 @@ class UserController extends Controller
 {
     use PasswordValidationRules;
 
+    public function fetch(Request $request) {
+        return ResponseFormatter::success($request->user(), 'Berhasil ambil data user');
+    }
+
     public function login(Request $request) {
         try {
             // validasi input
