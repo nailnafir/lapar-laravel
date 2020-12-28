@@ -99,4 +99,13 @@ class UserController extends Controller
             ], 422);
         }
     }
+
+    public function logout (Request $request) {
+
+        // cari user yang login, lalu delete tokennya
+        $token = $request->user()->currentAccessToken()->delete();
+
+        // menghasilkan boolean
+        return ResponseFormatter::success($token, 'Token dihapus');
+    }
 }
