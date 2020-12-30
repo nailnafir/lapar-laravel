@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\FoodController;
 use App\Http\Controllers\API\UserController;
 
 /*
@@ -26,3 +27,5 @@ Route::middleware('auth:sanctum')->group(function() {
 // tidak harus login
 Route::post('login', [UserController::class, 'login']);
 Route::post('register', [UserController::class, 'register']);
+
+Route::get('food', [FoodController::class, 'all']);
