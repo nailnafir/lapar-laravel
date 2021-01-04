@@ -12,8 +12,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
@@ -27,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'gender', 'address', 'houseNumber', 'rtrw', 'subDistrict', 'district', 'city', 'phoneNumber'
+        'name', 'email', 'password', 'profile_photo_path', 'gender', 'address', 'houseNumber', 'rtrw', 'subDistrict', 'district', 'city', 'phoneNumber'
     ];
 
     /**
