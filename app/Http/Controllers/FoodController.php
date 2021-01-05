@@ -25,7 +25,7 @@ class FoodController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        //
+        return view('food.create');
     }
 
     /**
@@ -35,7 +35,11 @@ class FoodController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        //
+        $data = $request->all();
+        $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
+
+        Food::create($data);
+        return redirect()->route('food.index');
     }
 
     /**
