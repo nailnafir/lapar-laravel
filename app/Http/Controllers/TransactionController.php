@@ -44,8 +44,10 @@ class TransactionController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
-        //
+    public function show(Transaction $transaction) {
+        return view('transactions.detail', [
+            'item' => $transaction
+        ]);
     }
 
     /**
@@ -77,5 +79,14 @@ class TransactionController extends Controller {
      */
     public function destroy($id) {
         //
+    }
+
+    public function changeStatus(Request $request, $id, $status) {
+        $transaction = Transaction::findOrFail($id);
+
+        $transaction->status = $status;
+        $transaction->save();
+
+        return redirect()->route('transactions.show', $id);
     }
 }
