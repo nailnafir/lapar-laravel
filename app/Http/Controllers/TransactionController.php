@@ -77,8 +77,10 @@ class TransactionController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
-        //
+    public function destroy(Transaction $transaction) {
+        $transaction->delete();
+
+        return redirect()->route('transactions.index');
     }
 
     public function changeStatus(Request $request, $id, $status) {
