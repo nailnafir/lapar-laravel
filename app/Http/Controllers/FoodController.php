@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Food;
 use Illuminate\Http\Request;
+use App\Http\Requests\FoodRequest;
 
 class FoodController extends Controller {
     /**
@@ -34,7 +35,7 @@ class FoodController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(FoodRequest $request) {
         $data = $request->all();
         $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
 
@@ -59,7 +60,9 @@ class FoodController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Food $food) {
-        //
+        return view('food.edit', [
+            'item' => $food
+        ]);
     }
 
     /**
@@ -69,8 +72,16 @@ class FoodController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Food $food) {
-        //
+    public function update(FoodRequest $request, Food $food) {
+        $data = $request->all();
+
+        if ($request->file('picturePath')) {
+            $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
+        }
+
+        $food->update($data);
+
+        return redirect()->route('food.index');
     }
 
     /**
