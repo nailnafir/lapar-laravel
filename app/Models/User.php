@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Jetstream\HasProfilePhoto;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -58,6 +59,12 @@ class User extends Authenticatable {
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function setPasswordAttribute($password) {
+        if (!empty($password)) {
+            $this->attributes['password'] = Hash::make($password);
+        }
+    }
 
     public function getCreatedAtAttribute($created_at) {
         return Carbon::parse($created_at)->getPreciseTimestamp(3);
