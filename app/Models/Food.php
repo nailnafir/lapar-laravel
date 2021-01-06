@@ -21,6 +21,17 @@ class Food extends Model {
         return $toArray;
     }
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'rate' => 'integer',
+        'price' => 'integer',
+        'discount' => 'integer',
+    ];
+
     public function getCreatedAtAttribute($created_at) {
         return Carbon::parse($created_at)
             ->getPreciseTimestamp(3);
