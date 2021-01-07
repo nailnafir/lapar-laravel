@@ -29,6 +29,7 @@ class Food extends Model {
     protected $casts = [
         'rate' => 'integer',
         'price' => 'integer',
+        'quantity' => 'integer',
         'discount' => 'integer',
     ];
 
