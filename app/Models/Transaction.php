@@ -9,8 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Transaction extends Model
-{
+class Transaction extends Model {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
@@ -30,14 +29,25 @@ class Transaction extends Model
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
-    public function getCreatedAtAttribute($created_at)
-    {
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'rate' => 'integer',
+        'price' => 'integer',
+        'quantity' => 'integer',
+        'discount' => 'integer',
+        'total' => 'integer',
+    ];
+
+    public function getCreatedAtAttribute($created_at) {
         return Carbon::parse($created_at)
             ->getPreciseTimestamp(3);
     }
-    
-    public function getUpdatedAtAttribute($updated_at)
-    {
+
+    public function getUpdatedAtAttribute($updated_at) {
         return Carbon::parse($updated_at)
             ->getPreciseTimestamp(3);
     }
