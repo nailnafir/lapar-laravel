@@ -11,8 +11,7 @@ use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class TransactionController extends Controller
-{
+class TransactionController extends Controller {
     public function all(Request $request) {
 
         // membuat filtering
@@ -26,13 +25,13 @@ class TransactionController extends Controller
 
             if ($transaction) {
                 return ResponseFormatter::success(
-                    $transaction, 
+                    $transaction,
                     'Berhasil mengambil data transaksi'
                 );
             } else {
                 return ResponseFormatter::error(
-                    null, 
-                    'Data transaksi tidak ada', 
+                    null,
+                    'Data transaksi tidak ada',
                     404
                 );
             }
@@ -41,11 +40,11 @@ class TransactionController extends Controller
         // ambil transaksi milik dia saja (yang sedang login)
         $transaction = Transaction::with(['food', 'user'])->where('user_id', Auth::user()->id);
 
-        if($food_id) {
+        if ($food_id) {
             $transaction->where('food_id', $food_id);
         }
 
-        if($status) {
+        if ($status) {
             $transaction->where('status', $status);
         }
 
