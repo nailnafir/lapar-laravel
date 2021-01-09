@@ -35,7 +35,7 @@ class Transaction extends Model {
      * @var array
      */
     protected $casts = [
-        'rate' => 'integer',
+        'rate' => 'double',
         'price' => 'integer',
         'quantity' => 'integer',
         'discount' => 'integer',
