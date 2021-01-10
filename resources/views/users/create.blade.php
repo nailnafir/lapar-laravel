@@ -26,6 +26,7 @@
                 </div>
                 @endif
                 <form action=" {{ route('users.store') }} " class="w-full" method="POST" enctype="multipart/form-data">
+                    <p class="text-red-500 text-sm mb-8 font-bold">Harap isi semua data!</p>
                     @csrf
                     <div class="flex flex-wrap -mx-3 mb-6">
                         <div class="w-full px-3">
