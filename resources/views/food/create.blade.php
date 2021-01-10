@@ -26,6 +26,7 @@
                 </div>
                 @endif
                 <form action=" {{ route('food.store') }} " class="w-full" method="POST" enctype="multipart/form-data">
+                    <p class="text-red-500 text-sm mb-8 font-bold">Harap isi semua data!</p>
                     @csrf
                     <div class="flex flex-wrap -mx-3 mb-6">
                         <div class="w-full px-3">
@@ -57,7 +58,7 @@
                                 Bahan Makanan
                             </label>
                             <input value="{{ old('ingredients') }}" name="ingredients" class="appearance-none block w-full bg-gray-200 text-gray-700 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Ketik bahan makanannya disini, ya . . . .">
-                            <p class="text-gray-600 text-xs italic">Dipisahkan dengan koma. Contoh: Cabe, Paprika, Tomat.</p>
+                            <p class="text-blue-600 text-xs italic">Dipisahkan dengan koma. Contoh: Cabe, Paprika, Tomat.</p>
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-6">
@@ -86,7 +87,7 @@
                                 Tipe
                             </label>
                             <input value="{{ old('types') }}" name="types" class="appearance-none block w-full bg-gray-200 text-gray-700 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Ketik tipe makanannya disini, ya . . . .">
-                            <p class="text-gray-600 text-xs italic">Hanya boleh ketik diantara tiga tipe tersebut, jika lebih dari satu, pisahkan dengan koma. Contoh: Terlaris, Terdekat, Terbaru.</p>
+                            <p class="text-blue-600 text-xs italic">Hanya boleh ketik diantara tiga tipe tersebut, jika lebih dari satu, pisahkan dengan koma. Contoh: Terlaris, Terdekat, Terbaru.</p>
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-6">
