@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller {
     /**
@@ -36,10 +37,24 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(UserRequest $request) {
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => 'required|min:8|confirmed',
+            'password_confirmation' => 'required',
+            'address' => ['required', 'string'],
+            'roles' => ['required', 'string', 'max:255', 'in:USER,ADMIN'],
+            'houseNumber' => ['required', 'string', 'max:255'],
+            'phoneNumber' => ['required', 'string', 'max:255'],
+            'city' => ['required', 'string', 'max:255'],
+        ]);
+
         $data = $request->all();
         $data['profile_photo_path'] = $request->file('profile_photo_path')->store('assets/user', 'public');
+        $data['password'] = Hash::make($request->password);
 
         User::create($data);
+
         return redirect()->route('users.index');
     }
 
