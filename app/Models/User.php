@@ -60,12 +60,6 @@ class User extends Authenticatable {
         'profile_photo_url',
     ];
 
-    public function setPasswordAttribute($password) {
-        if (!empty($password)) {
-            $this->attributes['password'] = Hash::make($password);
-        }
-    }
-
     public function getCreatedAtAttribute($created_at) {
         return Carbon::parse($created_at)->getPreciseTimestamp(3);
     }
