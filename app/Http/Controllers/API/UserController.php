@@ -86,6 +86,7 @@ class UserController extends Controller
                 'city' => $request->city,
                 'phoneNumber' => $request->phoneNumber,
                 'password' => Hash::make($request->password),
+                'current_team_id' => 1,
             ]);
 
             // buatkan user baru token untuk masuk login

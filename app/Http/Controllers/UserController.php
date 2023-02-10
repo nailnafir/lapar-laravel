@@ -89,6 +89,7 @@ class UserController extends Controller {
      */
     public function update(UserRequest $request, User $user) {
         $data = $request->all();
+        $data['password'] = Hash::make($request->password);
 
         if ($request->file('profile_picture_path')) {
             $data['profile_photo_path'] = $request->file('profile_photo_path')->store('assets/user', 'public');
