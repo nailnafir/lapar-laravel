@@ -52,6 +52,7 @@ class UserController extends Controller {
         $data = $request->all();
         $data['profile_photo_path'] = $request->file('profile_photo_path')->store('assets/user', 'public');
         $data['password'] = Hash::make($request->password);
+        $data['current_team_id'] = 1;
 
         User::create($data);
 
